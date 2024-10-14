@@ -27,9 +27,33 @@
             padding: 20px;
         }
 
+        /* Banner Styles */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            background-image: url('images/dogcat.jpg'); 
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 8px;
+        }
+
+        .banner-container a img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
         h2 {
-            color: #339933; 
-            margin-bottom: 20px;
+            color: #339933; /* Green color */
+            margin: 20px 0;
         }
 
         table {
@@ -62,17 +86,16 @@
             border-bottom: none;
         }
 
-        .empty-cart {
-            color: #999;
-            font-size: 18px;
-        }
-
-        form {
+        .cart-actions {
             margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
         }
 
-        button {
-            background-color: #339933; 
+        .cart-actions button, .cart-actions a {
+            background-color: #339933; /* Green */
             color: #fff;
             padding: 12px 25px;
             border: none;
@@ -83,17 +106,29 @@
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #66cc66; 
+        .cart-actions button:hover, .cart-actions a:hover {
+            background-color: #66cc66; /* Lighter green on hover */
+        }
+
+        .cart-actions a {
+            display: inline-block;
         }
     </style>
 </head>
 <body>
+
+    <!-- Updated Banner -->
+    <div class="banner-container">
+        <a href="home.jsp">
+            <img src="images/hppsl.png" alt="Cart Banner Logo">
+        </a>
+    </div>
+
     <%
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if (cart == null || cart.getProductList().isEmpty()) {
     %>
-        <p class="empty-cart">Your cart is empty.</p>
+        <p>Your cart is empty.</p>
     <%
         } else {
     %>
@@ -118,11 +153,22 @@
                 </tr>
             </c:forEach>
         </table>
-        <form action="CheckoutRedirectServlet" method="POST">
-            <button type="submit">Go to Checkout</button>
-        </form>
+
+        <div class="cart-actions">
+            <!-- Go to Checkout Button -->
+            <form action="CheckoutRedirectServlet" method="POST" style="margin: 0;">
+                <button type="submit">Go to Checkout</button>
+            </form>
+
+            <!-- Continue Shopping Button -->
+            <a href="products.jsp">Continue Shopping</a>
+
+            <!-- Back to Search Results Button -->
+            <a href="search-results.jsp">Back to Search Results</a>
+        </div>
     <%
         }
     %>
+
 </body>
 </html>
